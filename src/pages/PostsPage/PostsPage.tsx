@@ -7,10 +7,11 @@ import styles from './styles.module.css';
 export const Posts: React.FC = () => {
   const { posts, error, loading } = useTypedSelector((state) => state.post);
   const { fetchPosts } = useActions();
+  const limit = 20;
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    fetchPosts(limit);
+  }, [limit]);
 
   if (loading) {
     return <h1>Идет загрузка...</h1>;
@@ -18,8 +19,6 @@ export const Posts: React.FC = () => {
   if (error) {
     return <h1>{error}</h1>;
   }
-
-  console.log(posts);
 
   return (
     <div className={styles.root}>

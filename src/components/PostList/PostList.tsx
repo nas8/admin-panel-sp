@@ -1,18 +1,8 @@
+import { Posts } from '../../types/posts';
 import { PostItem } from '../PostItem/PostItem';
 import styles from './styles.module.css';
 
-type Post = {
-  body: string;
-  id: number;
-  title: string;
-  userId: number;
-};
-
-interface ComponentProps {
-  posts: Post[];
-}
-
-export const PostList = ({ posts }: ComponentProps) => {
+export const PostList: React.FC<Posts> = ({ posts }) => {
   return (
     <div className={styles.root}>
       {posts.map(({ id, title, body }) => (
