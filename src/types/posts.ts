@@ -13,11 +13,14 @@ export interface PostState {
   posts: Post[];
   loading: boolean;
   error: null | string;
+  page: number;
+  pages: number[];
 }
 export enum PostActionTypes {
   FETCH_POSTS = 'FETCH_POSTS',
   FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS',
   FETCH_POSTS_ERROR = 'FETCH_POSTS_ERROR',
+  SET_POSTS_PAGE = 'SET_POSTS_PAGE',
 }
 
 interface FetchPostsAction {
@@ -31,4 +34,14 @@ interface FetchPostsErrorAction {
   type: PostActionTypes.FETCH_POSTS_ERROR;
   payload: string;
 }
-export type PostAction = FetchPostsAction | FetchPostsErrorAction | FetchPostsSuccessAction;
+
+interface SetPostsPage {
+  type: PostActionTypes.SET_POSTS_PAGE;
+  payload: number;
+}
+
+export type PostAction =
+  | FetchPostsAction
+  | FetchPostsErrorAction
+  | FetchPostsSuccessAction
+  | SetPostsPage;

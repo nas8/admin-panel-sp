@@ -1,21 +1,30 @@
 import React from 'react';
-import { Comments } from '../../types/comments';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useEffect, useState } from 'react';
+import { useActions } from '../../hooks/useActions';
+import { Comments, Comment } from '../../types/comments';
+import { PostComment } from '../PostComment/PostComment';
 
-export const PostComments: React.FC<Comments> = ({ comments }) => {
-  console.log(comments);
+type PostProps = {
+  id: number;
+};
+
+export const PostComments: React.FC<PostProps> = ({ id }) => {
+  const { comments, error, loading } = useTypedSelector((state) => state.comment);
+  const { fetchComments } = useActions();
+
+  useEffect(() => {
+    fetchComments(id);
+  }, []);
+
+  const filtredComments = comments.filter((comment) => comment.postId === id);
 
   return (
     <div>
-      <h5>Comments</h5>
-      {comments.map(({ email, body, id }) => {
-        return (
-          <div key={id}>
-            <div>
-              {id} {email}
-            </div>
-            <div>{body}</div>
-          </div>
-        );
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {filtredComments.map((comment) => {
+        return <PostComment key={comment.id} comment={comment} />;
       })}
     </div>
   );

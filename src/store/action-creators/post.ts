@@ -2,12 +2,27 @@ import { PostAction, PostActionTypes } from '../../types/posts';
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
-export const fetchPosts = (limit = 10) => {
-  return async (dispatch: Dispatch<PostAction>) => {
+let pages: number[] = [];
+
+export const fetchPosts = (currentPage: number) => {
+  return async (dispatch: Dispatch<PostAction>, getState: () => any) => {
+    let isPageExist = false;
+
+    pages.forEach((page: number) => {
+      if (!isPageExist && page === currentPage) {
+        isPageExist = true;
+      }
+    });
+
+    if (isPageExist) {
+      return;
+    }
+    pages.push(currentPage);
+
     try {
       dispatch({ type: PostActionTypes.FETCH_POSTS });
       const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-        params: { _limit: limit },
+        params: { _page: currentPage },
       });
       dispatch({ type: PostActionTypes.FETCH_POSTS_SUCCESS, payload: response.data });
     } catch (e) {
@@ -18,3 +33,7 @@ export const fetchPosts = (limit = 10) => {
     }
   };
 };
+
+export function setPostsPage(page: number): PostAction {
+  return { type: PostActionTypes.SET_POSTS_PAGE, payload: page };
+}
