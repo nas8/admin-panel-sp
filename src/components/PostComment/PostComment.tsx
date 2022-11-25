@@ -2,15 +2,11 @@ import React from 'react';
 import { Comment, Comments } from '../../types/comments';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-type CommentType = {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
+type CommentProps = {
+  comment: Comment;
 };
 
-export const PostComment = ({ comment }: any) => {
+export const PostComment: React.FC<CommentProps> = ({ comment }) => {
   const { email, body } = comment;
 
   return (

@@ -24,7 +24,14 @@ export const fetchPosts = (currentPage: number) => {
       const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
         params: { _page: currentPage },
       });
-      dispatch({ type: PostActionTypes.FETCH_POSTS_SUCCESS, payload: response.data });
+      const totalCount = response.headers['x-total-count'];
+
+      console.log({ data: response.data, totalCount });
+
+      dispatch({
+        type: PostActionTypes.FETCH_POSTS_SUCCESS,
+        payload: { data: response.data, totalCount },
+      });
     } catch (e) {
       dispatch({
         type: PostActionTypes.FETCH_POSTS_ERROR,
@@ -34,6 +41,21 @@ export const fetchPosts = (currentPage: number) => {
   };
 };
 
-export function setPostsPage(page: number): PostAction {
+export const setPostsPage = (page: number): PostAction => {
   return { type: PostActionTypes.SET_POSTS_PAGE, payload: page };
-}
+};
+
+export const deletePost = (postId: number) => {
+  return async (dispatch: Dispatch<PostAction>) => {
+    try {
+      dispatch({ type: PostActionTypes.DELETE_POST });
+      const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+      dispatch({ type: PostActionTypes.DELETE_POST_SUCCESS, payload: postId });
+    } catch (e) {
+      dispatch({
+        type: PostActionTypes.DELETE_POST_ERROR,
+        payload: 'Произошла ошибка при удалении поста',
+      });
+    }
+  };
+};

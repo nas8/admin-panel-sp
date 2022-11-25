@@ -5,7 +5,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import styles from './styles.module.css';
 
 export const Posts: React.FC = () => {
-  const { posts, loading, page } = useTypedSelector((state) => state.post);
+  const { posts, loading, page, numberOfPosts } = useTypedSelector((state) => state.post);
   const { fetchPosts, setPostsPage } = useActions();
 
   useEffect(() => {
@@ -14,28 +14,29 @@ export const Posts: React.FC = () => {
     }
   }, [page]);
 
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+
+    return function () {
+      document.addEventListener('scroll', scrollHandler);
+    };
+  });
+
+  const scrollHandler = (e: any) => {
+    let scrollHeight = e.target.documentElement.scrollHeight;
+    let scrollTop = e.target.documentElement.scrollTop;
+    let innerHeight = window.innerHeight;
+    let difference = scrollHeight - (scrollTop + innerHeight);
+
+    if (difference < 100 && !loading && posts.length < numberOfPosts) {
+      setPostsPage(page + 1);
+    }
+  };
+
   return (
     <div className={styles.root}>
       <PostList posts={posts} />
-      {loading || <button onClick={() => setPostsPage(page + 1)}>Load More</button>}
+      {!loading && posts.length === numberOfPosts && <h4>Больше грузить нечего!</h4>}
     </div>
   );
 };
-
-// useEffect(() => {
-//   document.addEventListener('scroll', scrollHandler);
-
-//   return function () {
-//     document.addEventListener('scroll', scrollHandler);
-//   };
-// });
-
-// const scrollHandler = (e: any) => {
-//   let scrollHeight = e.target.documentElement.scrollHeight;
-//   let scrollTop = e.target.documentElement.scrollTop;
-//   let innerHeight = window.innerHeight;
-
-//   if (scrollHeight - (scrollTop + innerHeight) < 200) {
-//     setPostsPage(page + 1);
-//   }
-// };

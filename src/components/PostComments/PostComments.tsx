@@ -5,11 +5,11 @@ import { useActions } from '../../hooks/useActions';
 import { Comments, Comment } from '../../types/comments';
 import { PostComment } from '../PostComment/PostComment';
 
-type PostProps = {
+type CommentsProps = {
   id: number;
 };
 
-export const PostComments: React.FC<PostProps> = ({ id }) => {
+export const PostComments: React.FC<CommentsProps> = ({ id }) => {
   const { comments, error, loading } = useTypedSelector((state) => state.comment);
   const { fetchComments } = useActions();
 
