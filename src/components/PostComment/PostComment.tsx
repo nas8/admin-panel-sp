@@ -1,6 +1,5 @@
 import React from 'react';
-import { Comment, Comments } from '../../types/comments';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { Comment } from '../../types/comments';
 
 type CommentProps = {
   comment: Comment;

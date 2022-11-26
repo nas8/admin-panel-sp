@@ -1,0 +1,11 @@
+.root {
+  margin-bottom: 10px;
+}
+
+.photos {
+  display: flex;
+  flex-direction: row;
+
+  gap: 10px;
+  /* overflow-x: scroll; */
+}

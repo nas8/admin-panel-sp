@@ -1,5 +1,5 @@
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { Post, Posts } from '../../types/posts';
+import { Posts } from '../../types/posts';
 import { PostItem } from '../PostItem/PostItem';
 import styles from './styles.module.css';
 

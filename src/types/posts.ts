@@ -17,6 +17,7 @@ export interface PostState {
   pages: number[];
   numberOfPosts: number;
 }
+
 export enum PostActionTypes {
   FETCH_POSTS = 'FETCH_POSTS',
   FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS',

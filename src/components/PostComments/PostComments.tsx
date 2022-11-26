@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useActions } from '../../hooks/useActions';
-import { Comments, Comment } from '../../types/comments';
 import { PostComment } from '../PostComment/PostComment';
 
 type CommentsProps = {
