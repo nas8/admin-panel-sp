@@ -4,3 +4,26 @@
   margin: 10px 0;
   padding: 10px;
 }
+
+.btns__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post__title,
+.post__body {
+  margin-bottom: 10px;
+}
+
+.btn {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  cursor: pointer;
+
+  transition: all 0.1s linear;
+}
+
+.btn:hover {
+  background-color: rgb(226, 226, 226);
+}

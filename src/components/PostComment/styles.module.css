@@ -1,0 +1,7 @@
+.comment {
+  margin-bottom: 10px;
+}
+
+.comment:last-child {
+  margin-bottom: 0;
+}

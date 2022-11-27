@@ -6,4 +6,20 @@
   width: 100%;
   border-bottom: 1px black solid;
   gap: 20px;
+  position: fixed;
+  z-index: 1000;
+  background-color: rgb(13, 13, 13);
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.link:hover {
+  text-decoration: overline;
+}
+
+.link.active {
+  text-decoration: overline;
 }

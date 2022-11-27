@@ -15,13 +15,19 @@ export const PostItem: React.FC<PostItem> = ({ post }) => {
 
   return (
     <div className={styles.root}>
-      <h4>
+      <h4 className={styles.post__title}>
         {id}. {title}
       </h4>
-      <div>{body}</div>
+      <div className={styles.post__body}>{body}</div>
 
-      <button onClick={() => changeIsOpen(isOpen ? false : true)}>Open Comments</button>
-      <button onClick={() => deletePost(id)}>Delete</button>
+      <div className={styles.btns__container}>
+        <button className={styles.btn} onClick={() => changeIsOpen(isOpen ? false : true)}>
+          Open Comments
+        </button>
+        <button className={styles.btn} onClick={() => deletePost(id)}>
+          Delete
+        </button>
+      </div>
 
       {isOpen ? <PostComments id={id} /> : null}
     </div>

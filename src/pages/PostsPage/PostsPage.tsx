@@ -8,6 +8,8 @@ export const Posts: React.FC = () => {
   const { posts, loading, page, numberOfPosts } = useTypedSelector((state) => state.post);
   const { fetchPosts, setPostsPage } = useActions();
 
+  console.log(page);
+
   useEffect(() => {
     if (!loading) {
       fetchPosts(page);

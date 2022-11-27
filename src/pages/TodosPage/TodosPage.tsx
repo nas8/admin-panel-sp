@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
-import { UncompletedTodos } from '../../components/UncompletedTodos/UncompletedTodos';
-import styles from './styles.module.css';
-import { CompletedTodos } from '../../components/CompletedTodos/CompletedTodos';
+import { TodosList } from '../../components/Todos/TodosList';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import styles from './styles.module.css';
 
 export const Todos: React.FC = () => {
-  const { todos, completedTodos, loading, page, numberOfTodos } = useTypedSelector(
-    (state) => state.todos,
-  );
-  const { fetchTodos, setTodosPage, changeTodosList, changeCompletedTodosList } = useActions();
+  const { todos, completedTodos, loading, page } = useTypedSelector((state) => state.todos);
+  const { fetchTodos, changeTodosList, changeCompletedTodosList } = useActions();
 
   useEffect(() => {
     if (!loading) {
@@ -29,58 +26,64 @@ export const Todos: React.FC = () => {
       return;
     }
 
-    let add;
-    let active = [...todos];
-    let complete = [...completedTodos];
+    let droppableItem;
+    const activeList = [...todos];
+    const completeList = [...completedTodos];
 
     // Source Logic
     if (source.droppableId === 'TodoList') {
-      add = active[source.index];
-      active.splice(source.index, 1);
+      droppableItem = activeList[source.index];
+      activeList.splice(source.index, 1);
     } else {
-      add = complete[source.index];
-      complete.splice(source.index, 1);
+      droppableItem = completeList[source.index];
+      completeList.splice(source.index, 1);
     }
 
     // Destination Logic
     if (destination.droppableId === 'TodoList') {
-      active.splice(destination.index, 0, add);
+      droppableItem.completed = false;
+      activeList.splice(destination.index, 0, droppableItem);
     } else {
-      complete.splice(destination.index, 0, add);
+      droppableItem.completed = true;
+      completeList.splice(destination.index, 0, droppableItem);
     }
 
-    console.log(complete);
-
-    changeTodosList(active);
-    changeCompletedTodosList(complete);
+    changeTodosList(activeList);
+    changeCompletedTodosList(completeList);
   };
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <div className={styles.root}>
-        <Droppable droppableId="TodoList">
-          {(provided) => (
-            <div
-              className={styles.todos__container}
-              {...provided.droppableProps}
-              ref={provided.innerRef}>
-              <UncompletedTodos todos={todos} />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+        <div>
+          <h4 className={styles.tasks__title}>Tasks</h4>
+          <Droppable droppableId="TodoList">
+            {(provided) => (
+              <div
+                className={styles.todos__container}
+                {...provided.droppableProps}
+                ref={provided.innerRef}>
+                <TodosList todos={todos} />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </div>
 
-        <Droppable droppableId="CompletedTodoList">
-          {(provided) => (
-            <div
-              className={styles.todos__container}
-              {...provided.droppableProps}
-              ref={provided.innerRef}>
-              <CompletedTodos todos={completedTodos} />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+        <div>
+          <h4 className={styles.tasks__title}>Completed Tasks</h4>
+          <Droppable droppableId="CompletedTodoList">
+            {(provided) => (
+              <div
+                className={styles.todos__container}
+                {...provided.droppableProps}
+                ref={provided.innerRef}>
+                <TodosList todos={completedTodos} />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </div>
       </div>
     </DragDropContext>
   );

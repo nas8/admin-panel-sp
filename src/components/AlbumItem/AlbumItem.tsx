@@ -37,18 +37,18 @@ export const AlbumsItem: React.FC<AlbumItem> = ({ album }) => {
 
   return (
     <div className={styles.root}>
-      <h4>
+      <h4 className={styles.album__title}>
         {id}. {title}
       </h4>
       <div className={styles.photos}>
         {filtredPhotos.length > 0 ? <PhotoItem currentPhoto={currentPhoto} /> : <h4>Пусто</h4>}
       </div>
-      <div>
+      <div className={styles.stats}>
         {photoId + 1}/{filtredPhotos.length}
       </div>
       <div>
-        <button onClick={() => decreasePhotoId()}>prev</button>
-        <button onClick={() => increasePhotoId()}>next</button>
+        <button className={styles.left__btn} onClick={() => decreasePhotoId()}></button>
+        <button className={styles.right__btn} onClick={() => increasePhotoId()}></button>
       </div>
     </div>
   );

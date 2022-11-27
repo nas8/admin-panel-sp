@@ -1,5 +1,8 @@
 .root {
   margin-bottom: 10px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .photos {
@@ -8,4 +11,58 @@
 
   gap: 10px;
   /* overflow-x: scroll; */
+}
+
+.stats {
+  font-size: 20px;
+}
+
+.album__title {
+  margin-bottom: 10px;
+}
+
+.left__btn {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: -10%;
+
+  border: solid black;
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(135deg);
+
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.right__btn {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  right: -10%;
+
+  border: solid black;
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.right__btn:hover {
+  transform: rotate(-45deg) scale(1.1);
+}
+
+.left__btn:hover {
+  transform: rotate(135deg) scale(1.1);
 }

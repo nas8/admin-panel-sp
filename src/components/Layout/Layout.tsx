@@ -10,8 +10,7 @@ export const Layout: React.FC<Layout> = ({ children }) => {
   return (
     <div className={styles.root}>
       <Header />
-      <div>{children}</div>
-      {/* <footer>footer</footer> */}
+      <div className={styles.content}>{children}</div>
     </div>
   );
 };

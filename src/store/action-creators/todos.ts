@@ -22,7 +22,7 @@ export const fetchTodos = (currentPage: number) => {
     try {
       dispatch({ type: TodoActionTypes.FETCH_TODOS });
       const response = await axios.get('https://jsonplaceholder.typicode.com/todos', {
-        params: { _page: currentPage, _limit: 5 },
+        params: { _page: currentPage, _limit: 200 },
       });
       const totalCount = response.headers['x-total-count'];
 
