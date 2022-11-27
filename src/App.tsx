@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Layout } from './components/Layout/Layout';
 import { Albums } from './pages/AlbumsPage/AlbumsPage';
@@ -10,7 +10,7 @@ import { store } from './store';
 
 export const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <div>
           <Layout>
@@ -24,6 +24,6 @@ export const App = () => {
           </Layout>
         </div>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
