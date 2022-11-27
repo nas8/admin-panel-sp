@@ -17,8 +17,6 @@ export const fetchPhotos = (id: number, page: number) => {
       return;
     }
 
-    // console.log('page' + page);
-
     try {
       dispatch({ type: PhotoActionTypes.FETCH_PHOTOS });
       const response = await axios.get(`https://jsonplaceholder.typicode.com/album/${id}/photos`, {
